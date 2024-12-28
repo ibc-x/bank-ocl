@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.compe.bank:Operation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.eclipse.compe.bank="http://org/eclipse/compte/bank"
+    xsi:schemaLocation="http://org/eclipse/compte/bank gestioncomptes.ecore"/>

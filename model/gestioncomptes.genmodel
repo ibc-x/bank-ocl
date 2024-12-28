@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/eclipse.emf.gestioncomptes/src" modelPluginID="eclipse.emf.gestioncomptes"
+    modelName="Gestioncomptes" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="21.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>gestioncomptes.ecore</foreignModel>
+  <genPackages prefix="Bank" disposableProviderFactory="true" ecorePackage="gestioncomptes.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gestioncomptes.ecore#//TypeOperation">
+      <genEnumLiterals ecoreEnumLiteral="gestioncomptes.ecore#//TypeOperation/DEBIT"/>
+      <genEnumLiterals ecoreEnumLiteral="gestioncomptes.ecore#//TypeOperation/CREDIT"/>
+    </genEnums>
+    <genClasses ecoreClass="gestioncomptes.ecore#//Compte">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gestioncomptes.ecore#//Compte/numero"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gestioncomptes.ecore#//Compte/solde"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gestioncomptes.ecore#//Compte/operations"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gestioncomptes.ecore#//Compte/client"/>
+    </genClasses>
+    <genClasses ecoreClass="gestioncomptes.ecore#//CompteCourant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gestioncomptes.ecore#//CompteCourant/decouvert"/>
+    </genClasses>
+    <genClasses ecoreClass="gestioncomptes.ecore#//CompteEpargne">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gestioncomptes.ecore#//CompteEpargne/tauxInteret"/>
+    </genClasses>
+    <genClasses ecoreClass="gestioncomptes.ecore#//Operation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gestioncomptes.ecore#//Operation/numero"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gestioncomptes.ecore#//Operation/date"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gestioncomptes.ecore#//Operation/montant"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gestioncomptes.ecore#//Operation/typeOperation"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gestioncomptes.ecore#//Operation/compte"/>
+    </genClasses>
+    <genClasses ecoreClass="gestioncomptes.ecore#//Employe"/>
+    <genClasses ecoreClass="gestioncomptes.ecore#//Personne">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gestioncomptes.ecore#//Personne/numero"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gestioncomptes.ecore#//Personne/nom"/>
+    </genClasses>
+    <genClasses ecoreClass="gestioncomptes.ecore#//Client">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gestioncomptes.ecore#//Client/comptes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gestioncomptes.ecore#//Client/identifier"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gestioncomptes.ecore#//Client/code"/>
+      <genOperations ecoreOperation="gestioncomptes.ecore#//Client/display"/>
+    </genClasses>
+    <genClasses ecoreClass="gestioncomptes.ecore#//Groupe"/>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="bank" nsURI="http://org/eclipse/compte/bank" nsPrefix="org.eclipse.compe.bank">
+  <eAnnotations source="http://www.eclipse.org/OCL/Import">
+    <details key="ecore" value="http://www.eclipse.org/emf/2002/Ecore"/>
+  </eAnnotations>
+  <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+    <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EClass" name="Compte">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="check_solde check_solde_after_depot check_operation_association"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="check_solde" value="self.solde > 0"/>
+      <details key="check_solde_after_depot" value="self.solde > 0 implies (self.solde + 1) > 0"/>
+      <details key="check_operation_association" value=" self.operations->forAll(op | op.compte = self)"/>
+    </eAnnotations>
+    <eOperations name="deposer">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="pre_montant_invalid" value="montant > 0"/>
+        <details key="post_solde_mise_a_jour" value="self.solde = self.solde + montant"/>
+        <details key="post" value="self.solde > 0"/>
+      </eAnnotations>
+      <eParameters name="montant" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numero" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigInteger"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="solde" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operations" upperBound="-1"
+        eType="#//Operation" containment="true" eOpposite="#//Operation/compte"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="client" eType="#//Client"
+        eOpposite="#//Client/comptes"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CompteCourant" eSuperTypes="#//Compte">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="decouvert" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CompteEpargne" eSuperTypes="#//Compte">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tauxInteret" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Operation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numero" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="date" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="montant" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="typeOperation" eType="#//TypeOperation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="compte" lowerBound="1"
+        eType="#//Compte" eOpposite="#//Compte/operations"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Employe" eSuperTypes="#//Personne"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="TypeOperation">
+    <eLiterals name="DEBIT"/>
+    <eLiterals name="CREDIT" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Personne">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numero" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nom" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Client" eSuperTypes="#//Personne">
+    <eOperations name="display" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="comptes" upperBound="-1"
+        eType="#//Compte" containment="true" eOpposite="#//Compte/client"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        volatile="true" transient="true" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Groupe" eSuperTypes="#//Personne"/>
+</ecore:EPackage>
